@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/static/css/styles_login.css">
+    
+</head>
+<body>
+
+
+    
+
+    <!-- ID Particles.js -->
+    <div id="particles-js"></div>
+    <!-- JS Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="static/js/app.js"></script>
+
+    <div class="content">
+        <div class="logo"></div>
+        <h1>LABORATORIO Camara Anecoica</h1>
+        <p>INGRESA TUS CREDENCIALES</p>
+        <form action="/login" method="post">
+            <div class="input-container">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        
+    </div>
+</body>
+</html>
+

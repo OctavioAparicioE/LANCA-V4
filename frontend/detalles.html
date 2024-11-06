@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+    <!-- En el <head> de tu HTML -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/detalles.css">
+
+</head>
+<body>
+
+    <header class="header"></header>
+		<div class="btn-menu">
+
+		</div>
+		</div>
+	</header>
+
+    <!-- Div para el fondo de partículas -->
+    <div id="particles-js"></div>
+    
+    <div class="header">
+        <div class="containermenu">
+            <div class="menu">
+                <div class="menu-image-left">
+                    <img src="/static/images/logouni.jpg" alt="Left Image" id="left-image">
+                </div>
+                <a href="index" id="buscarMedicionBtn">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Menu Principal</span>
+                </a>
+                <a href="identificador" id="buscarMedicionBtn">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Regresar a Registros</span>
+                </a>
+                <!-- Aquí agregas el evento para generar el PDF -->
+                <a href="javascript:genPDF()">Generar Reporte de Medición</a>
+                <div class="menu-image-right">
+                    <img src="/static/images/logomarina.jpg" alt="Right Image" id="right-image">
+                </div>
+            </div>            
+        </div>
+    </div>
+    
+    <div class="capa"></div>
+    
+    <section id="detalles">
+        <!-- Contenido de la sección de detalles -->
+    </section>
+    
+    <section id="puntos">
+        <!-- Contenido de la sección de puntos -->
+    </section>
+    
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="static-data">
+                <h2>Datos de la Medición</h2>
+                
+                <!-- Tabla de Detalles del Registro -->
+                <div class="table-section">
+                    <h3>Detalles del Registro</h3>
+                    <table class="table table-registro">
+                        <tbody>
+                            <tr>
+                                <th>ID de la Medición</th>
+                                <td>{{ dato.id_datos_medicion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha y Hora</th>
+                                <td>{{ dato.fecha_hora }}</td>
+                            </tr>
+                            <tr>
+                                <th>Identificador</th>
+                                <td>{{ dato.identificador }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+                <!-- Tabla de Puntos de la Medición -->
+                <div class="table-section">
+                    <h3>Puntos de la Medición</h3>
+                    <table class="table table-puntos">
+                        <thead>
+                            <tr>
+                                <th>Punto Inicial en X</th>
+                                <th>Punto Final en X</th>
+                                <th>Punto Inicial en Y</th>
+                                <th>Punto Final en Y</th>
+                                <th>Puntos Totales en X</th>
+                                <th>Puntos Totales en Y</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for punto in start_stop_data %}
+                            <tr>
+                                <td>{{ punto.scan_start }}</td>
+                                <td>{{ punto.scan_stop }}</td>
+                                <td>{{ punto.step_start }}</td>
+                                <td>{{ punto.step_stop }}</td>
+                                <td>{{ punto.total_scan }}</td>
+                                <td>{{ punto.total_step }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                
+        
+                <div class="main-content">
+                    
+                    <!-- Sección anterior, como la tabla de frecuencias -->
+                    <div class="table-section">
+                        
+                        <h3>Frecuencias de la Medición</h3>
+                        <table class="table table-frecuencias">
+                            <thead>
+                                <tr>
+                                    <th>Frecuencia de Medición (GHz)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for frecuencia in frecuencias_data %}
+                                <tr>
+                                    <td>{{ frecuencia.frecuencia }} GHz</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+            
+        
+                <!-- Tabla de Datos de la Medición de la Antena -->
+                <div class="table-section">
+                    <h3>Datos de la Medición de la Antena</h3>
+                    <table class="table table-antena">
+                        <thead>
+                            <tr>
+                                <th>Ganancia</th>
+                                <th>Directividad</th>
+                                <th>Tiempo de Medición</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ variables_data.ganancia }}</td>
+                                <td>{{ "Prueba" }}</td>
+                                <td>{{ variables_data.tiempo_medicion }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Nueva sección para agregar una imagen -->
+            <div class="image-section">
+                <h3>Agregar Imagen</h3>
+                <input type="file" id="image-upload" accept="image/*" />
+                <img id="preview" src="#" alt="Vista previa de la imagen" style="display:none; margin-top: 10px;" />
+            </div>
+
+            <h2>Puntos de Medición</h2>
+            <table class="table table-puntos-medicion">
+                <thead>
+                    <tr>
+                        <th>Scan</th>
+                        <th>Ganancia Máxima</th>
+                        <th>Fase</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for punto in puntos_medicion_data %}
+                    <tr>
+                        <td>{{ punto.scan }}</td>
+                        <td>{{ punto.amplitud4 }}</td>
+                        <td>{{ punto.fase4 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+    
+    <script>
+        // Script para mostrar la vista previa de la imagen seleccionada
+        document.getElementById("image-upload").addEventListener("change", function(event) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const preview = document.getElementById("preview");
+                preview.src = reader.result;
+                preview.style.display = "block"; // Mostrar la imagen
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        });
+    </script>
+
+    <button id="nuevoRegistroBtn" class="boton" onclick="redirigirIdentificador()">
+        <ion-icon name="identificador"></ion-icon>
+        <span>Regresar</span>
+    </button>
+    
+    
+    <!-- Script para incluir jsPDF -->
+<script type="text/javascript" src="/static/js/jspdf.min.js"></script>
+
+
+
+<script type="text/javascript">
+    // Función para convertir imágenes a base64
+    function loadImageAsBase64(url, callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            var reader = new FileReader();
+            reader.onloadend = function() {
+                callback(reader.result);
+            }
+            reader.readAsDataURL(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
+    }
+
+    function genPDF() {
+        // Crear un nuevo documento PDF
+        var doc = new jsPDF();
+
+        // Establecer márgenes
+        let margin = 20;
+
+        // Variables para almacenar los totales
+        let totalX = 0;
+        let totalY = 0;
+
+        let tiempoMedicion = "{{ variables_data.tiempo_medicion }}";  // Agregar el tiempo de medición
+
+        let identificador = "{{ dato.identificador }}";
+
+        // Cargar las imágenes desde la carpeta 
+        loadImageAsBase64('/static/images/logo2.png', function(logo1Base64) {
+            loadImageAsBase64('/static/images/logomarina.jpg', function(logo2Base64) {
+                
+                // Agregar las imágenes al PDF
+                doc.addImage(logo1Base64, 'JPEG', margin, 10, 30, 25); // Logo izquierdo
+                doc.addImage(logo2Base64, 'JPEG', 160, 10, 30, 30);    // Logo derecho
+
+                // Establecer el tamaño de fuente y estilo para el título
+                doc.setFontSize(16);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Reporte de Medición', margin, 20);  // Mover el título hacia abajo para dejar espacio a las imágenes
+                doc.text(`Nombre de la Medición:`, margin, 30);  //Nombre de la medición
+                doc.text(`${identificador}`, margin, 40);  //Nombre de la medición 
+
+                // Línea divisoria debajo del título
+                doc.setLineWidth(0.5);
+                doc.line(margin, 45, 190, 45); // Línea horizontal
+
+                // Establecer el tamaño de fuente para el contenido
+                doc.setFontSize(12);
+                doc.setFont('helvetica', 'normal');
+
+                // Obtener valores de la tabla de medición
+                let idMedicion = "{{ dato.id_datos_medicion }}";
+                let fechaHora = "{{ dato.fecha_hora }}";
+
+                // Agregar información general
+                doc.text(`ID de la Medición: ${idMedicion}`, margin, 55);
+                doc.text(`Fecha y Hora: ${fechaHora}`, margin, 65);
+                doc.text(`Tiempo de Medición: ${tiempoMedicion}`, margin, 75);  // Mostrar el tiempo de medición
+
+                 // Calcular los totales de puntos X y Y sumando los valores de start_stop_data
+                totalX = 0;
+                totalY = 0;
+                {% for punto in start_stop_data %}
+                totalX += parseFloat('{{ punto.total_scan }}');
+                totalY += parseFloat('{{ punto.total_step }}');
+                {% endfor %}
+            
+                // Mostrar los totales a la derecha de los datos de medición
+                doc.text(`Puntos medidos en X: ${totalX.toFixed(2)}`, 135, 55);  // Alineado con ID de la Medición
+                doc.text(`Puntos medidos en Y: ${totalY.toFixed(2)}`, 135, 65);  // Alineado con Fecha y Hora
+                
+
+                // Agregar un título para la tabla de puntos de medición
+                doc.setFontSize(14);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Puntos de Medición:', margin, 90);
+
+                // Posición inicial para los datos de la tabla
+                let startY = 100;
+                let startX = margin;
+
+                // Encabezados de la tabla
+                doc.setFontSize(10);
+                doc.setFont('helvetica', 'bold');
+                doc.text('Scan', startX, startY);
+                doc.text('Amplitud 1', startX + 20, startY);
+                doc.text('Fase 1', startX + 50, startY);
+                doc.text('Amplitud 2', startX + 75, startY);
+                doc.text('Fase 2', startX + 105, startY);
+                doc.text('Amplitud 3', startX + 125, startY);
+                doc.text('Fase 3', startX + 155, startY);
+
+                // Líneas divisorias para los encabezados
+                doc.line(startX, startY + 2, 190, startY + 2);
+
+                // Incrementar la posición Y para las filas
+                startY += 8; // Disminuir el espacio entre encabezado y primera fila
+
+                // Agregar filas de la tabla con datos de puntos_medicion_data
+                doc.setFont('helvetica', 'normal');
+                {% for punto in puntos_medicion_data %}
+                doc.text('{{ punto.scan }}', startX, startY);
+                doc.text('{{ punto.amplitud1 }}', startX + 20, startY);
+                doc.text('{{ punto.fase1 }}', startX + 50, startY);
+                doc.text('{{ punto.amplitud2 }}', startX + 75, startY);
+                doc.text('{{ punto.fase2 }}', startX + 103, startY);
+                doc.text('{{ punto.amplitud3 }}', startX + 125, startY);
+                doc.text('{{ punto.fase3 }}', startX + 155, startY);
+                
+                // Líneas horizontales para cada fila
+                doc.line(startX, startY + 2, 190, startY + 2);
+
+                // Mover hacia abajo para la siguiente fila, con espacio reducido
+                startY += 7;  // Reducir el espacio entre filas
+
+                // Agregar una nueva página si la tabla es demasiado larga
+                if (startY > 270) {
+                    doc.addPage();
+                    startY = 20; // Reiniciar la posición Y
+                    doc.setFont('helvetica', 'bold');
+                    doc.text('Puntos de Medición (cont.):', margin, startY - 10);
+                    doc.line(startX, startY, 190, startY);
+                    startY += 10;
+                }
+                {% endfor %}
+
+                // Guardar el PDF
+                doc.save(`${identificador}.pdf`);
+            });
+        });
+    }
+</script>    
+
+    <!-- Script para Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="/static/js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="src/js/navegacion.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

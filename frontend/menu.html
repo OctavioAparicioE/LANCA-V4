@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Camara ANECOICA</title>
+    <link rel="stylesheet" href="/static/css/menu.css">
+    <style>
+        /* Estilos de la sección de búsqueda (popup) */
+        .buscador {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        /* Fondo oscuro para cuando se abre el popup */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 900;
+        }
+
+        /* Estilos para cerrar el popup */
+        .close-btn {
+            cursor: pointer;
+            font-size: 20px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    
+   <!--  <div id="particles-js"></div>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="/static/js/app.js"></script> -->
+    
+    <!-- Barra lateral con opciones -->
+
+    <header class="header">
+		<div class="container">
+			<div class="btn-menu">
+				<label for="btn-menu">☰</label>
+			</div>
+			<div class="logo">
+				<h1>LABORATORIO CAMARA ANECOICA</h1>
+			</div>
+			<nav class="menu">
+				<a href="#">Camara Anecoica</a>
+				<a href="#"></a>
+				<a href="#">Contacto</a>
+			</nav>
+		</div>
+	</header>
+	<div class="capa"></div>
+
+    <div class="barra-lateral">
+        <div>
+            <div class="nombre-pagina">
+                <span class="titulo">CÁMARA ANECOICA</span>
+            </div>
+            <div class="container">
+                <button id="nuevoRegistroBtn" class="boton" onclick="redirigirIdentificador()">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                    <span>NUEVO REGISTRO</span>
+                </button>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <!-- Overlay para oscurecer el fondo -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Popup para subir archivos -->
+    <div id="popup" class="popup" style="display: none;">
+        <link rel="stylesheet" href="/static/css/menucarga.css">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <div id="form-container">
+                <h2>Subir Archivo MDB</h2>
+                <form id="upload-form" action="/upload-mdb/" enctype="multipart/form-data" method="post">
+                    <input name="file" type="file" class="file-input">
+                    <input type="submit" value="Subir Archivo" class="submit-btn">
+                </form>
+            </div>
+            <div id="success-message" class="message" style="display: none;">
+                <img src="/static/images/palomita.jpg" alt="Éxito" class="message-image">
+                <p>Carga realizada correctamente</p>
+            </div>
+            <div id="error-message" class="message" style="display: none;">
+                <img src="/static/images/errorcarga.jpg" alt="Error" class="message-image">
+                <p>Algo salió mal. Por favor, inténtelo de nuevo.</p>
+            </div>
+        </div>
+    </div>
+
+    <main></main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/consultas.js"></script>
+
+    <!-- Código JavaScript para manejar la apertura/cierre del popup -->
+    <script>
+        const buscarMedicionBtn = document.getElementById('buscarMedicionBtn');
+        const buscador = document.getElementById('buscador');
+        const overlay = document.getElementById('overlay');
+        const closeBuscador = document.querySelector('.close-btn');
+
+        // Mostrar el popup y el overlay
+        buscarMedicionBtn.addEventListener('click', () => {
+            buscador.style.display = 'block';
+            overlay.style.display = 'block';
+        });
+
+        // Cerrar el popup y el overlay
+        closeBuscador.addEventListener('click', () => {
+            buscador.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        // Cerrar el popup si se hace clic en el overlay
+        overlay.addEventListener('click', () => {
+            buscador.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

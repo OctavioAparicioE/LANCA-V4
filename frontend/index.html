@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <title>Menu Camara Anecoica</title>
+    <link rel="stylesheet" href="/static/css/estilos.css">
+    <link rel="stylesheet" href="/static/css/menucarga.css">
+    <!-- En el <head> de tu HTML -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+    <header class="header">
+        <div class="menu-image-left">
+            <img src="/static/images/logouni.jpg" alt="Left Image" id="left-image">
+        </div>
+        <div class="container">
+            <div class="btn-menu">
+                <label for="btn-menu">☰  LABORATORIO CAMARA ANECOICA</label>
+            </div>
+            <nav class="menu">
+                <a href="#">Camara Anecoica</a>
+                <a href="#">Contacto</a>
+            </nav>
+        </div>
+        <div class="menu-image-right">
+            <img src="/static/images/logomarina.jpg" alt="Right Image" id="right-image">
+        </div>
+    </header>
+
+    <div class="capa"></div>
+
+    <input type="checkbox" id="btn-menu">
+    <div class="container-menu">
+        <div class="cont-menu">
+            <nav class="navegacion">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                            <span>Generar Reporte</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="identificador" id="buscarMedicionBtn">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <span>Buscar Medición</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                            <span>Inventario</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <label for="btn-menu">✖️</label>
+        </div>
+    </div>
+
+    <!-- Botón "Nuevo Registro" -->
+    <button id="nuevoRegistroBtn" class="center-button" onclick="openPopup()">
+        <span class="button-icon">+</span> NUEVO REGISTRO
+    </button>
+
+    <!-- Popup para subir archivos -->
+    <div id="popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <div id="form-container">
+                <h2>Subir Archivo MDB</h2>
+                <form id="upload-form" action="/upload-mdb/" enctype="multipart/form-data" method="post">
+                    <input name="file" type="file" class="file-input">
+                    <input type="submit" value="Subir Archivo" class="submit-btn">
+                </form>
+            </div>
+            <div id="success-message" class="message" style="display: none;">
+                <img src="/static/images/palomita.jpg" alt="Éxito" class="message-image">
+                <p>Carga realizada correctamente</p>
+            </div>
+            <div id="error-message" class="message" style="display: none;">
+                <img src="/static/images/errorcarga.jpg" alt="Error" class="message-image">
+                <p>Algo salió mal. Por favor, inténtelo de nuevo.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" style="display: none;"></div>
+
+    <main></main>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="/static/js/menu.js"></script>
+    <script src="/static/js/consultas.js"></script>
+
+    <script>
+        // Función para abrir el popup
+        function openPopup() {
+            const popup = document.getElementById('popup');
+            const overlay = document.getElementById('overlay');
+            popup.style.display = 'block';
+            overlay.style.display = 'block';
+        }
+
+        // Función para cerrar el popup
+        const closeBtn = document.querySelector('.close-btn');
+        const overlay = document.getElementById('overlay');
+        closeBtn.addEventListener('click', () => {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+
+        overlay.addEventListener('click', () => {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+            overlay.style.display = 'none';
+        });
+    </script>
+
+</body>
+</html>

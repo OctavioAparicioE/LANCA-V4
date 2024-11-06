@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Búsqueda por Identificador</title>
+    <!-- Fuentes -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap" rel="stylesheet">
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/css/detalles.css">
+
+    <link rel="stylesheet" href="static/css/identificador.css">    
+</head>
+<body>
+
+    <!-- ID Particles.js -->
+    <div id="particles-js"></div>
+    
+    <!-- JS Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="static/js/app.js"></script>
+
+
+    <div class="header">
+        <div class="containermenu">
+            <div class="menu">
+                <div class="menu-image-left">
+                    <img src="/static/images/logouni.jpg" alt="Left Image" id="left-image">
+                </div>
+                <a href="index" id="buscarMedicionBtn">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <span>Menu Principal</span>
+                </a>
+                <div class="menu-image-right">
+                    <img src="/static/images/logomarina.jpg" alt="Right Image" id="right-image">
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div class="capa"></div>
+
+    <!-- Contenedor principal -->
+    <div class="content">
+        <h1>Búsqueda por Identificador</h1>
+        <p>Selecciona el identificador para buscar los datos correspondientes.</p>
+
+        <form method="post" action="/buscar" id="form-container">
+            <select name="identificador" id="identificador" class="file-input">
+                <option value="todos">Mostrar todos los registros</option> <!-- Opción para mostrar todos -->
+                {% for dato in todos_los_identificadores %}
+                    <option value="{{ dato.identificador }}">{{ dato.identificador }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="submit-btn">Buscar</button>
+        </form>
+
+        <h2>Resultados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha Hora</th>
+                    <th>Nombre de la Medición</th>
+                    <th></th> <!-- Columna para el botón de buscar -->
+                </tr>
+            </thead>
+            <tbody>
+                {% if datos %}
+                    {% for dato in datos %}
+                    <tr>
+                        <td>{{ dato.id_datos_medicion }}</td>
+                        <td>{{ dato.fecha_hora }}</td>
+                        <td>{{ dato.identificador }}</td>
+                        <td>
+                            <!-- Botón de búsqueda que lleva a la ruta /detalles con el ID del registro -->
+                            <a href="/detalles?id={{ dato.id_datos_medicion }}" class="button">Ver Detalles</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="message">No hay datos para mostrar. Realiza una búsqueda.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,325 @@
+/* Importar fuente Montserrat desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
+/* Estilo general */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-size: 1em; /* Tamaño de letra ligeramente reducido */
+    color: #fff;
+    background-color: #000; /* Fondo negro para mayor contraste */
+}
+
+/* Fondo de partículas */
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Estilo del encabezado */
+.header {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: linear-gradient(10deg, rgb(0, 0, 0) 20%, rgb(0, 17, 48) 80%);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+/* Contenedor del menú */
+.containermenu {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Estilos de los enlaces de la barra de menú */
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-grow: 1;
+    gap: 30px;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background-color 2s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu a::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300%;
+    height: 300%;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 1.7s ease;
+    z-index: 0;
+}
+
+.menu a:hover::before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.menu a:hover {
+    color: #7a7a7a;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    transform: translateY(-2px); /* Desplazamiento al hacer hover */
+}
+
+/* Estilo de imágenes del menú */
+.menu-image-left,
+.menu-image-right {
+    display: flex;
+    align-items: center;
+}
+
+.menu-image-left {
+    margin-right: auto;
+}
+
+.menu-image-right {
+    margin-left: auto;
+}
+
+.menu-image-left img,
+.menu-image-right img {
+    height: 90px;
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Agregado: transición de opacidad */
+}
+
+.menu-image-left img:hover,
+.menu-image-right img:hover {
+    transform: scale(1.1); /* Efecto de zoom al pasar el ratón */
+    opacity: 0.8; /* Cambiar opacidad al hacer hover */
+}
+
+/* Contenedores principales */
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    padding-top: 100px;
+    justify-content: center;
+}
+
+/* Estilos de las columnas */
+.sidebar,
+.main-content {
+    width: 70%; /* Aumenta el ancho para hacer los contenedores más anchos */
+    max-width: 1000px; /* También ajusta el ancho máximo */
+    padding: 20px;
+    border: 1px solid #444;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+
+/* Efecto al pasar el mouse sobre los contenedores */
+.sidebar:hover,
+.main-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Títulos */
+h2, h3 {
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Tablas */
+.table, .table-puntos-medicion {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+    font-size: 1em;
+    color: #ffffff;
+}
+
+.table th, .table td, .table-puntos-medicion th, .table-puntos-medicion td {
+    padding: 12px;
+    border: 1px solid #555;
+    text-align: center;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Agregado: efecto de transformación */
+}
+
+.table th, .table-puntos-medicion th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.table tr:nth-child(even), .table-puntos-medicion tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.table tr:hover, .table-puntos-medicion tr:hover {
+    background-color: rgba(100, 149, 237, 0.3);
+    cursor: pointer;
+    transform: scale(1.02); /* Efecto de zoom al pasar el mouse sobre la fila */
+}
+
+/* Ajuste de ancho del contenedor de la tabla */
+.table-puntos-medicion {
+    max-width: 80%;
+    margin: 0 auto;
+    font-size: 1.1em;
+}
+
+/* Columnas uniformes */
+.table-puntos-medicion th:nth-child(1),
+.table-puntos-medicion td:nth-child(1),
+.table-puntos-medicion th:nth-child(2),
+.table-puntos-medicion td:nth-child(2),
+.table-puntos-medicion th:nth-child(3),
+.table-puntos-medicion td:nth-child(3) {
+    width: 25%;
+}
+
+/* Estilos de paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 0 5px;
+    padding: 10px;
+    background-color: #555;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #666;
+    transform: translateY(-2px);
+}
+
+/* Mensajes de éxito y error */
+.message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.success {
+    background-color: rgba(0, 255, 0, 0.1);
+    color: #0b3d0b;
+}
+
+.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #b30000;
+}
+
+/* Sección de imagen */
+.image-section {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-section h3 {
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 1.5em;
+    color: #afafaf;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#preview {
+    max-width: 800px;
+    max-height: 400px;
+    width: auto;
+    height: auto;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+    align-self: center;
+}
+
+/* Botones */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+/* Tarjetas */
+.card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+/* Estilo para pantallas pequeñas */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Cambia a columna en pantallas pequeñas */
+    }
+
+    .sidebar,
+    .main-content {
+        width: 100%; /* Se expanden para ocupar todo el ancho */
+    }
+
+    .menu a {
+        font-size: 1em; /* Tamaño de letra reducido en móvil */
+        padding: 8px 15px; /* Espaciado reducido */
+    }
+}

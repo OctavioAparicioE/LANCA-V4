@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+    <link rel="stylesheet" href="/static/css/detalles.css">
+</head>
+<body>
+
+    <header class="header"></header>
+		<div class="container">
+		<div class="btn-menu">
+
+		</div>
+		</div>
+	</header>
+
+    <!-- Div para el fondo de partículas -->
+    <div id="particles-js"></div>
+    
+    <div class="header">
+        <div class="container">
+            <div class="menu">
+                <a href="#detalles">Generar Gráficas</a>
+                <a href="#puntos">Generar Reporte de Medición</a>
+            </div>
+        </div>
+    </div>
+    <div class="capa"></div>
+    
+    <section id="detalles">
+        <!-- Contenido de la sección de detalles -->
+    </section>
+    
+    <section id="puntos">
+        <!-- Contenido de la sección de puntos -->
+    </section>
+    
+
+    <div class="container">
+        <div class="sidebar">
+            <div class="static-data">
+                <h2>Datos de la Medicion</h2>
+                <h3>Detalles del Registro</h3>
+                <table>
+                    <tbody> 
+                        <tr>
+                            <th>ID de la Medicion</th>
+                            <td>{{ dato.id_datos_medicion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha y Hora</th>
+                            <td>{{ dato.fecha_hora }}</td>
+                        </tr>
+                        <tr>
+                            <th>Identificador</th>
+                            <td>{{ dato.identificador }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Puntos de la Medición</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Punto Inicial en X</th>
+                            <th>Punto Final en X</th>
+                            <th>Punto Inicial en Y</th>
+                            <th>Punto Final en Y</th>
+                            <th>Puntos Totales de la Medición en X</th>
+                            <th>Puntos Totales de la Medición en Y</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for punto in start_stop_data %}
+                        <tr>
+                            <td>{{ punto.scan_start }}</td>
+                            <td>{{ punto.scan_stop }}</td>
+                            <td>{{ punto.step_start }}</td>
+                            <td>{{ punto.step_stop }}</td>
+                            <td>{{ punto.total_scan }}</td>
+                            <td>{{ punto.total_step }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <h3>Datos de la Medición de la Antena</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ganancia</th>
+                            <th>Polarización</th>
+                            <th>Tiempo de Medición</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ variables_data.ganancia }}</td>
+                            <td>{{ variables_data.polarizacion }}</td>
+                            <td>{{ variables_data.tiempo_medicion }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="main-content">
+            <h2>Puntos de Medición</h2>
+            <table class="table-puntos-medicion">
+                <thead>
+                    <tr>
+                        <th>Scan</th>
+                        <th>Amplitud 1</th>
+                        <th>Fase 1</th>
+                        <th>Amplitud 2</th>
+                        <th>Fase 2</th>
+                        <th>Amplitud 3</th>
+                        <th>Fase 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for punto in puntos_medicion_data %}
+                    <tr>
+                        <td>{{ punto.scan }}</td>
+                        <td>{{ punto.amplitud1 }}</td>
+                        <td>{{ punto.fase1 }}</td>
+                        <td>{{ punto.amplitud2 }}</td>
+                        <td>{{ punto.fase2 }}</td>
+                        <td>{{ punto.amplitud3 }}</td>
+                        <td>{{ punto.fase3 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>        
+    </div>
+
+    <a href="/buscar" class="back-link">Volver a la búsqueda</a>
+
+    <!-- Script para Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

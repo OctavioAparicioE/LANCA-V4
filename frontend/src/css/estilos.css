@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat Alternates', sans-serif;
+}
+
+body {
+    background: url('/static/images/fondomenu.jpg') no-repeat center center; /* Ruta a la imagen de fondo */
+    background-size: cover; /* La imagen cubre toda la pantalla */
+    background-attachment: fixed; /* Fija la imagen al fondo */
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #000000; /* Color de fondo en caso de que la imagen no cargue */
+}
+
+.capa {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+    top: 0;
+}
+
+
+
+
+.header {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el contenido a los extremos */
+    padding: 0 20px; /* Añade algo de espacio en los bordes */
+}
+
+.menu-image-left,
+.menu-image-right {
+    position: relative;
+    height: 90px;
+    width: auto;
+}
+
+.menu-image-left img,
+.menu-image-right img {
+    height: 90px;
+    width: auto;
+    border-radius: 50%;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    justify-content: center;
+}
+
+.container .btn-menu,
+.logo {
+    float: left;
+    line-height: 100px;
+}
+
+.container .btn-menu label {
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+.logo h1 {
+    color: #fff;
+    font-weight: 400;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.container .menu {
+    float: right;
+    line-height: 100px;
+}
+
+.container .menu a {
+    display: inline-block;
+    padding: 15px;
+    line-height: normal;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+    font-size: 17px;
+    margin-right: 5px;
+}
+
+.container .menu a:hover {
+    border-bottom: 2px solid #c7c7c7;
+    padding-bottom: 5px;
+}
+
+/* Fin de Estilos para el encabezado */
+
+/* Menú lateral */
+#btn-menu {
+    display: none;
+}
+
+.container-menu {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    transition: all 500ms ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+#btn-menu:checked ~ .container-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cont-menu {
+    width: 100%;
+    max-width: 250px;
+    background: #1c1c1c;
+    height: 100vh;
+    position: relative;
+    transition: all 500ms ease;
+    transform: translateX(-100%);
+}
+
+#btn-menu:checked ~ .container-menu .cont-menu {
+    transform: translateX(0%);
+}
+
+.cont-menu nav {
+    transform: translateY(15%);
+}
+
+.cont-menu nav a {
+    display: block;
+    text-decoration: none;
+    padding: 20px;
+    color: #c7c7c7;
+    border-left: 5px solid transparent;
+    transition: all 400ms ease;
+}
+
+.cont-menu nav a:hover {
+    border-left: 5px solid #c7c7c7;
+    background: #1f1f1f;
+}
+
+.cont-menu label {
+    position: absolute;
+    right: 5px;
+    top: 10px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Estilos para el botón mejorado */
+.center-button {
+    position: absolute;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra horizontalmente */
+    transform: translate(-50%, -50%); /* Ajusta la posición al centro */
+    padding: 15px 30px; /* Espaciado del botón */
+    background-color: #1c1c1c; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    font-size: 20px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor en forma de puntero */
+    transition: background-color 0.3s, transform 0.3s; /* Transición para el color de fondo y escalado */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra para el botón */
+    display: flex; /* Usar flexbox para centrar el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+}
+
+.button-icon {
+    margin-right: 10px; /* Espaciado entre el icono y el texto */
+    font-size: 24px; /* Tamaño del icono */
+}
+
+.center-button:hover {
+    background-color: #3c3c3c; /* Color de fondo al pasar el mouse */
+    transform: translate(-50%, -50%) scale(1.05); /* Escala ligeramente el botón */
+}
+
+/* Fin de estilos para el botón mejorado */
+
+
+
+/* Estilos para el popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegúrate de que el popup esté por encima de otros elementos */
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative; /* Necesario para la posición del botón de cerrar */
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #c7c7c7; /* Color del botón de cerrar */
+}
+
+.close-btn:hover {
+    color: #ff0000; /* Color al pasar el mouse */
+}
+
+/* Estilos para el formulario */
+#form-container {
+    margin-top: 20px;
+}
+
+.file-input {
+    margin-bottom: 10px; /* Espacio entre los inputs */
+}
+
+.submit-btn {
+    background-color: #1c1c1c; /* Color del botón de envío */
+    color: #fff;
+    padding: 10px 20px; /* Espaciado del botón */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #3c3c3c; /* Color al pasar el mouse */
+}
+
+/* Estilos para los mensajes de éxito/error */
+.message {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.message-image {
+    width: 50px; /* Ajusta el tamaño de la imagen */
+    margin-right: 10px; /* Espacio entre la imagen y el texto */
+}

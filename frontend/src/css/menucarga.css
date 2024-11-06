@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap');
+
+:root {
+    --color-barra-lateral: rgba(0, 0, 0, 0.4); /* Fondo semi-transparente */
+    --color-texto: rgb(255, 255, 255); /* Texto blanco para contrastar con el fondo oscuro */
+    --color-texto-menu: rgb(220, 220, 220); /* Color claro para menú */
+    --color-menu-hover: rgba(255, 255, 255, 0.1); /* Fondo ligeramente más claro al hacer hover */
+    --color-menu-hover-texto: rgb(255, 255, 255);
+    --color-boton: rgba(255, 255, 255, 0.3); /* Botón con transparencia */
+    --color-boton-texto: rgb(255, 255, 255);
+    --color-linea: rgba(255, 255, 255, 0.5); /* Línea semi-transparente */
+    --color-switch-base: rgb(201, 202, 206);
+    --color-switch-circulo: rgb(241, 241, 241);
+    --color-scroll: rgba(255, 255, 255, 0.2);
+    --color-scroll-hover: rgba(255, 255, 255, 0.4);
+}
+
+/* Estilos generales para el popup */
+/* Estilos generales para el popup */
+.popup {
+    display: flex; /* Usa flexbox para centrar el contenido */
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro semi-transparente */
+    z-index: 1000; /* Para asegurar que esté por encima del contenido */
+}
+
+/* Contenedor del contenido del popup */
+.popup-content {
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo negro con transparencia */
+    padding: 30px;
+    border-radius: 10px;
+    width: 50%; /* Ajusta según sea necesario */
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidad */
+    animation: fadeIn 0.4s ease; /* Animación de entrada */
+    color: var(--color-texto); /* Color del texto */
+}
+
+/* Animación opcional para el popup */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* Botón de cierre (la "X") */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--color-texto-boton); /* Color texto del botón de cerrar */
+    background-color: var(--color-boton-cerrar); /* Fondo botón cerrar */
+    border-radius: 50%;
+    padding: 5px 12px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.close-btn:hover {
+    background-color: var(--color-boton-cerrar-hover); /* Fondo hover botón cerrar */
+}
+
+/* Estilos del formulario */
+#form-container h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.file-input {
+    margin: 15px 0;
+    padding: 12px;
+    width: 100%;
+    border: 2px solid var(--color-borde-input); /* Borde de inputs */
+    border-radius: 5px;
+    background-color: var(--color-fondo-input); /* Fondo de inputs */
+}
+
+/* Botón de envío */
+.submit-btn {
+    background-color: rgba(46, 41, 41, 0.8); /* Fondo negro con transparencia */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: var(--color-boton-submit-hover); /* Cambio de color al pasar el ratón */
+}
+
+/* Estilo para los mensajes */
+.message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.message-image {
+    width: 90px;
+    height: 60px;
+    margin-bottom: 10px;
+}
+
+/* Mensaje de éxito */
+#success-message p {
+    font-size: 18px;
+    color: var(--color-success); /* Color verde para el mensaje de éxito */
+}
+
+/* Mensaje de error */
+#error-message p {
+    font-size: 18px;
+    color: var(--color-error); /* Color rojo para el mensaje de error */
+}
+
+/* Adaptabilidad para pantallas más pequeñas */
+@media screen and (max-width: 600px) {
+    .popup-content {
+        width: 80%; /* Reducir el ancho en pantallas más pequeñas */
+    }
+}
