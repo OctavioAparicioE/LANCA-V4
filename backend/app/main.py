@@ -100,7 +100,6 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
     ).limit(3).all()
 
 
-
     ##############CONSULTAS DE FRECUENCIAS ############## ############## ############## ##############
 
     frecuencias_data = db.query(
@@ -108,7 +107,30 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
     ).join(Mediciones, Frecuencias.id_medicion == Mediciones.id_medicion
     ).filter(Mediciones.identificador == dato.identificador).all()
 
+
+    ####################################### CONSULA DATOS GRAFICAS
+
+    grafica_data = db.query(
+        PuntosMedicion.scan, 
+        PuntosMedicion.amplitud4, 
+        StartStop.scan_start,
+        StartStop.scan_stop,
+        StartStop.step_start,
+        StartStop.step_stop,
+        StartStop.point_scan,
+        StartStop.point_step
+    ).join(
+        Mediciones, PuntosMedicion.id_medicion == Mediciones.id_medicion
+    ).join(
+        StartStop, PuntosMedicion.id_start_stop == StartStop.id_start_stop
+    ).filter(
+     Mediciones.identificador == dato.identificador
+    ).order_by(
+       PuntosMedicion.amplitud4.desc()
+    ).all()
     
+#######################################
+
 
     return templates.TemplateResponse("detalles.html", {
         "request": request,
@@ -117,10 +139,9 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
         "variables_data": variables_data,
         "puntos_medicion_data": puntos_medicion_data,
         "frecuencias_data": frecuencias_data,
+        "grafica_data": grafica_data,
     })
 
-
-#######################################
 
 # Ruta para mostrar el formulario de login (GET)
 @app.get("/menu")
@@ -369,13 +390,7 @@ def procesar_mdb(mdb_path):
         # Insertar frecuencias en la tabla 'frecuencias'
         insert_query = "INSERT INTO frecuencias (id_medicion, frecuencia) VALUES (%s, %s)"
         cursor.executemany(insert_query, frequencies_processed)
-        
-        # Insertar en la tabla puntos_medicion
-        for i in range(len(amplitudes_bin4)):
-            cursor.execute(
-            "INSERT INTO puntos_medicion (id_medicion, scan, rinc, frecuencia, amplitud1, fase1, amplitud2, fase2, amplitud3, fase3, amplitud4, fase4, amplitud5, fase5, amplitud6, fase6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-            (id_medicion_actual, scan_r[i], rinc_r[i], freq_r[i], amplitudes_bin1[i], fase_bin1[i], amplitudes_bin2[i], fase_bin2[i], amplitudes_bin3[i], fase_bin3[i], amplitudes_bin4[i], fase_bin4[i], amplitudes_bin5[i], fase_bin5[i], amplitudes_bin6[i], fase_bin6[i])
-               )
+    
 
 
         # Insertar en la tabla variables_antena
@@ -419,6 +434,14 @@ def procesar_mdb(mdb_path):
                 )
             else:
                 print(f"Datos no válidos en la fila {i}: fecha_hora={fecha_hora}, responsable_medicion={responsable_medicion}")
+
+         # Insertar en la tabla puntos_medicion
+        for i in range(len(amplitudes_bin4)):
+            cursor.execute(
+            "INSERT INTO puntos_medicion (id_medicion, id_start_stop ,scan, rinc, frecuencia, amplitud1, fase1, amplitud2, fase2, amplitud3, fase3, amplitud4, fase4, amplitud5, fase5, amplitud6, fase6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (id_medicion_actual, id_stopstart,scan_r[i], rinc_r[i], freq_r[i], amplitudes_bin1[i], fase_bin1[i], amplitudes_bin2[i], fase_bin2[i], amplitudes_bin3[i], fase_bin3[i], amplitudes_bin4[i], fase_bin4[i], amplitudes_bin5[i], fase_bin5[i], amplitudes_bin6[i], fase_bin6[i])
+               )
+
 
         # Confirmar los cambios
         conexion.commit()

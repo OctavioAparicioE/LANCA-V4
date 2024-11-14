@@ -9,12 +9,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="/static/css/detalles.css">
 
 </head>
 <body>
-
+    <h1>Patrón de Radiacíon</h1>
+    
     <header class="header"></header>
 		<div class="btn-menu">
 
@@ -95,8 +96,8 @@
                                 <th>Punto Final en X</th>
                                 <th>Punto Inicial en Y</th>
                                 <th>Punto Final en Y</th>
-                                <th>Puntos Totales en X</th>
-                                <th>Puntos Totales en Y</th>
+                                <th>Puntos en Scan</th>
+                                <th>Puntos en Step</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,8 +107,8 @@
                                 <td>{{ punto.scan_stop }}</td>
                                 <td>{{ punto.step_start }}</td>
                                 <td>{{ punto.step_stop }}</td>
-                                <td>{{ punto.total_scan }}</td>
-                                <td>{{ punto.total_step }}</td>
+                                <td>{{ punto.point_scan }}</td>
+                                <td>{{ punto.point_step }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -195,6 +196,8 @@
         </div>
         
     </div>
+
+    
     
     <script>
         // Script para mostrar la vista previa de la imagen seleccionada
@@ -357,6 +360,11 @@
             });
         });
     }
+
+
+
+
+
 </script>    
 
     <!-- Script para Particles.js -->
