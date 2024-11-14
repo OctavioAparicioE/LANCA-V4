@@ -37,6 +37,9 @@ class StartStop(Base):
     step_stop = Column(Float)
     total_scan = Column(Float)
     total_step = Column(Float)
+    point_scan = Column(Float)
+    point_step  = Column(Float)
+
 
     # Relación con datos_medicion_principal
     datos_medicion_principal = relationship("DatosMedicionPrincipal", back_populates="start_stop")

@@ -74,7 +74,7 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
     # Consulta los datos de DatosMedicionPrincipal usando el ID
     dato = db.query(DatosMedicionPrincipal).filter(DatosMedicionPrincipal.id_datos_medicion == id).first()
 
-    if not dato:
+    if not dato:    
         raise HTTPException(status_code=404, detail="Registro no encontrado")
 
     # Consulta los datos de StartStop usando el identificador del dato
@@ -216,7 +216,7 @@ def procesar_mdb(mdb_path):
     df_rstimestamp = pd.read_sql(query_rstimestamp, conn)
 
     # Leer los datos de la tabla AcDF_MotionData
-    query_rstimes = "SELECT [scan sector 1 start], [scan sector 1 stop], [step 1 sector 1 start], [step 1 sector 1 stop] FROM AcDF_MotionData"
+    query_rstimes = "SELECT [scan sector 1 start], [scan sector 1 stop], [scan sector 1 number], [step 1 sector 1 start], [step 1 sector 1 stop], [step 1 sector 1 number] FROM AcDF_MotionData"
     df_rstimes = pd.read_sql(query_rstimes, conn)
 
     ########################Tablas para llenar las tablas de frecuencias en la base de datos
@@ -275,26 +275,18 @@ def procesar_mdb(mdb_path):
     freq_r = df_raster_scan['Freq'].values
 
     #STOP START 
-    scanstart = df_rstimes['scan sector 1 start'].values
-    scanstop = df_rstimes['scan sector 1 stop'].values
-    stepstart = df_rstimes['step 1 sector 1 start'].values
-    stepstop = df_rstimes['step 1 sector 1 stop'].values
+    scan_start_value = df_rstimes['scan sector 1 start'].values[0]
+    scan_stop_value = df_rstimes['scan sector 1 stop'].values[0]
+    step_start_value = df_rstimes['step 1 sector 1 start'].values[0]
+    step_stop_value = df_rstimes['step 1 sector 1 stop'].values[0]
+    number_scan_value = df_rstimes['scan sector 1 number'].values[0]
+    number_step_value = df_rstimes['step 1 sector 1 number'].values[0]
 
-    # Asegúrate de que estos sean valores únicos, no arreglos
-    scan_start_value = float(scanstart[0]) if len(scanstart) > 0 else None
-    scan_stop_value = float(scanstop[0]) if len(scanstop) > 0 else None
-    step_start_value = float(stepstart[0]) if len(stepstart) > 0 else None
-    step_stop_value = float(stepstop[0]) if len(stepstop) > 0 else None
 
     # Multiplicar los valores
     scan_stop_multiplicado = scan_stop_value * 2 if scan_stop_value is not None else None
     step_stop_multiplicado = step_stop_value * 2 if step_stop_value is not None else None
 
-
-    scan_start_value = float(scanstart[0]) if isinstance(scanstart, np.ndarray) else float(scanstart)
-    scan_stop_value = float(scanstop[0]) if isinstance(scanstop, np.ndarray) else float(scanstop)
-    step_start_value = float(scanstart[0]) if isinstance(scanstart, np.ndarray) else float(stepstart)
-    step_stop_value = float(scanstop[0]) if isinstance(scanstop, np.ndarray) else float(stepstop)
     
     #Datos principales
     fecha_hora = df_responsable['Created On'].values
@@ -394,8 +386,8 @@ def procesar_mdb(mdb_path):
               )
         
         cursor.execute(
-            "INSERT INTO start_stop (scan_start, scan_stop, step_start, step_stop, total_scan, total_step) VALUES (%s, %s, %s, %s, %s, %s)",
-            (scan_start_value, scan_stop_value, step_start_value, step_stop_value, scan_stop_multiplicado, step_stop_multiplicado)
+            "INSERT INTO start_stop (scan_start, scan_stop, step_start, step_stop, total_scan, total_step, point_scan, point_step) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+            (scan_start_value, scan_stop_value, step_start_value, step_stop_value, scan_stop_multiplicado, step_stop_multiplicado, number_scan_value, number_step_value)
               )
         
     

@@ -1,108 +1,177 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Montserrat+Alternates|Poppins&display=swap');
 
-/* Estilos generales para el body */
+/* Contenedor principal que alinea logo y formulario */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    flex-wrap: wrap; /* Permite que los elementos se apilen en pantallas pequeñas */
+}
+
+/* Contenedor del logo a la izquierda */
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 300px; /* Limitando el tamaño del contenedor */
+    margin-bottom: 20px; /* Espaciado entre el logo y el formulario */
+}
+
+/* Contenedor del formulario a la derecha */
+.login-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 400px;
+    width: 90%;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo transparente para el formulario */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    text-align: center;
+}
+
+/* Ajustes para la imagen del logo */
+.logo {
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* Estilos generales para el body y fondo de partículas */
 body {
-    background-color: rgb(0, 0, 0); /* Fondo negro */
+    background-color: rgb(0, 0, 0);
     font-family: 'Poppins', sans-serif;
-    color: #fff; /* Texto blanco para mayor contraste */
+    color: #fff;
     margin: 0;
     padding: 0;
     background-size: cover;
     background-position: center;
 }
 
+/* Fondo de partículas */
 #particles-js {
-    background-color: rgb(0, 0, 0); /* Fondo negro */
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Envía el fondo detrás de otros elementos */
+    z-index: -1;
+    background-color: rgba(32, 32, 32, 0.2);
 }
 
-/* Estilos para el div principal con clase 'content' */
-.content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.8); /* Fondo más opaco */
-    border-radius: 10px;
-    padding: 40px 30px; /* Espacio interior */
-    max-width: 450px; /* Mantiene el ancho máximo */
-    min-height: 450px; /* Reduce la altura mínima */
-    margin: auto; /* Centra horizontalmente */
-    position: absolute; /* Para controlar la posición en la página */
-    top: 50%; /* Centra verticalmente */
-    left: 50%; /* Centra horizontalmente */
-    transform: translate(-50%, -50%); /* Ajuste para centrar en ambas direcciones */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6); /* Sombra para mayor contraste */
-}
-
-
-/* Estilo para el título principal */
-.content h1 {
-    font-size: 3.5em; /* Aumenta el tamaño de la fuente */
-    margin-bottom: 0px; /* Espacio adicional debajo del título */
-    color: #eaeaea; /* Texto blanco más claro */
+/* Estilos para el formulario */
+.login-form h1 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #ffffff;
     font-weight: bold;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3); /* Sombras más fuertes */
-    letter-spacing: 1.5px; /* Mayor espacio entre letras */
-    text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif;
-    text-align: center;
+    letter-spacing: 1px;
 }
 
-.content p {
-    font-size: 1.4em; /* Aumenta el tamaño del texto */
-    margin-bottom: 25px;
-    color: #cccccc; /* Texto gris claro */
-}A
-
-/* Estilo para el formulario */
-.content form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #eaeaea; /* Texto más claro */
-}
-
-/* Estilo para las etiquetas del formulario */
-.content label {
-    font-size: 1.2em; /* Aumenta el tamaño de las etiquetas */
-    margin-bottom: 8px;
-}
-
-/* Estilo para los inputs */
-.content input {
-    font-size: 1.1em; /* Aumenta el tamaño del texto en los inputs */
-    padding: 12px; /* Más espacio interno en los inputs */
+.login-form p {
+    font-size: 1em;
+    color: #eaeaea;
     margin-bottom: 20px;
+}
+
+.login-form input {
+    font-size: 1em;
+    padding: 12px;
+    margin-bottom: 15px;
     width: 100%;
-    border: 1px solid #999;
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
-    color: #fff;
+    border: 1px solid rgba(238, 235, 235, 0.3);
+    border-radius: 25px;
+    background-color: transparent;
+    color: #ffffff;
+    transition: border-color 0.3s ease;
 }
 
-.content input::placeholder {
-    color: #ddd; /* Placeholder más claro */
+.login-form input:focus {
+    border-color: #ff7f50; /* Resalta el borde al hacer foco */
 }
 
-/* Estilo para el botón de envío */
-.content button {
-    font-size: 1.2em; /* Aumenta el tamaño de la fuente */
-    padding: 12px 25px; /* Más padding para un botón más grande */
-    color: #fff;
-    background-color: #007bff;
+/* Estilo del botón */
+.login-form button {
+    font-size: 1.2em;
+    padding: 12px;
+    margin-top: 10px;
+    width: 100%;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
+    color: #ffffff;
+    background-color: #1503b4;
     cursor: pointer;
-    width: 100%;
-    transition: background-color 0.3s ease; /* Animación en hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Efecto hover en el botón */
-.content button:hover {
-    background-color: #0056b3; /* Color más oscuro al pasar el cursor */
+.login-form button:hover {
+    background-color: #ff4500;
+    transform: scale(1.05); /* Efecto de escala en hover */
+}
+
+/* Opciones de formulario */
+.options {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+    color: #cccccc;
+    font-size: 0.9em;
+}
+
+.options a {
+    color: #ff7f50;
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+/* Botones de redes sociales */
+.social-login {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.social-login button {
+    font-size: 1em;
+    padding: 10px;
+    width: 45%;
+    border: none;
+    border-radius: 25px;
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.social-login button:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Medios de comunicación responsivos */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apilar el logo y formulario en pantallas pequeñas */
+    }
+
+    .logo-container {
+        margin-bottom: 20px; /* Espaciado ajustado entre el logo y el formulario */
+    }
+
+    .login-form {
+        padding: 20px;
+    }
+
+    .login-form h1 {
+        font-size: 1.5em; /* Ajuste de tamaño en pantallas pequeñas */
+    }
 }
