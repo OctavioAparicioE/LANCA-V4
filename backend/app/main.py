@@ -429,7 +429,7 @@ def procesar_mdb(mdb_path):
             if fecha_hora and responsable_medicion:
                 cursor.execute(
                     "INSERT INTO datos_medicion_principal (id_variables, identificador, id_start_stop, fecha_hora, responsable_medicion) VALUES (%s, %s, %s, %s, %s)",
-                    (id_variables_antena_actual, id_dentificador, id_stopstart, fecha_hora, responsable_medicion)
+                    (id_variables_antena_actual, identificador, id_stopstart, fecha_hora, responsable_medicion)
                 )
             else:
                 print(f"Datos no válidos en la fila {i}: fecha_hora={fecha_hora}, responsable_medicion={responsable_medicion}")
