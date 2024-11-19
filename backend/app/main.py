@@ -196,7 +196,6 @@ def login_form(request: Request):
 #########################################################################################
 
 
-
 @app.post("/upload-mdb/")
 async def upload_mdb(file: UploadFile = File(...)):
     try:
@@ -441,12 +440,11 @@ def procesar_mdb(mdb_path):
             "INSERT INTO puntos_medicion (id_medicion, id_start_stop ,scan, rinc, frecuencia, amplitud1, fase1, amplitud2, fase2, amplitud3, fase3, amplitud4, fase4, amplitud5, fase5, amplitud6, fase6) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
             (id_medicion_actual, id_stopstart,scan_r[i], rinc_r[i], freq_r[i], amplitudes_bin1[i], fase_bin1[i], amplitudes_bin2[i], fase_bin2[i], amplitudes_bin3[i], fase_bin3[i], amplitudes_bin4[i], fase_bin4[i], amplitudes_bin5[i], fase_bin5[i], amplitudes_bin6[i], fase_bin6[i])
                )
-
-
+            
         # Confirmar los cambios
         conexion.commit()
         return {"polarizacion": polarizacion, "ganancia": ganancia_max_global_db, "tiempo_medicion": tiempo_medicion_formateado}
-    
+
 
     except Exception as e:
         # Revertir los cambios en caso de error
@@ -459,3 +457,5 @@ def procesar_mdb(mdb_path):
         # Cerrar conexiones
         cursor.close()
         conexion.close()
+
+    
