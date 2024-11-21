@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="/static/css/detalles.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
 </head>
 <body>
@@ -116,6 +119,8 @@
                 </div>
 
                 
+
+                
         
                 <div class="main-content">
                     
@@ -167,12 +172,98 @@
         </div>
         
         <div class="main-content">
-            <!-- Nueva sección para agregar una imagen -->
-            <div class="image-section">
-                <h3>Agregar Imagen</h3>
-                <input type="file" id="image-upload" accept="image/*" />
-                <img id="preview" src="#" alt="Vista previa de la imagen" style="display:none; margin-top: 10px;" />
-            </div>
+        
+            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+            <div id="graph1" style="width:800px;height:600px;"></div>
+            <script>
+                // Datos para la gráfica 3D
+                var data = [{
+                    z: {{ z_values | tojson }},
+                    x: {{ x_values | tojson }},
+                    y: {{ y_values | tojson }},
+                    type: 'surface',
+                    colorscale: 'Jet', // Colores vibrantes de la escala Jet
+                    colorbar: {
+                        title: 'dB',
+                        xpad: 20,  // Mejor espacio entre la barra de color y la gráfica
+                        x: 1.05,   // Mover la barra de color un poco más lejos de la gráfica
+                        tickvals: [-40, -30, -20, -10, 0, 10, 20, 30, 40],  // Etiquetas personalizadas
+                        ticktext: ['-40', '-30', '-20', '-10', '0', '10', '20', '30', '40']  // Texto en la barra
+                    }
+                }];
+            
+                // Configuración inicial de la gráfica
+                var layout = {
+                    title: {
+                        text: 'Patrón de Radiación', // Título claro y centrado
+                        font: { size: 24, color: '#ffffff' }, // Título con fuente blanca
+                        x: 0.5, // Centrado horizontalmente
+                        y: 0.95, // Colocarlo arriba
+                    },
+                    scene: {
+                        camera: {
+                            eye: { x: 1, y: 1.5, z: 1 }, // Cambiar la vista de la cámara para mejorar la visualización
+                        },
+                        xaxis: { title: 'Scan (m)', color: '#ffffff' }, // Eje X con título blanco
+                        yaxis: { title: 'Step (m)', color: '#ffffff' }, // Eje Y con título blanco
+                        zaxis: { title: 'Amplitud (dB)', color: '#ffffff' }, // Eje Z con título blanco
+                    },
+                    template: 'plotly_dark',  // Usar fondo oscuro para resaltar el gráfico
+                    paper_bgcolor: '#000000',  // Fondo del área del gráfico completamente negro
+                    plot_bgcolor: '#000000',   // Fondo de la gráfica también negro
+                    margin: { l: 50, r: 50, b: 50, t: 80 }, // Ajustes para los márgenes para mejor presentación
+                };
+            
+                // Crear la gráfica
+                Plotly.newPlot('graph1', data, layout);
+            
+                // Función para rotar la gráfica automáticamente
+                var angle = 0;
+                function rotateGraph() {
+                    angle += 1; // Aumentar el ángulo de rotación
+                    var eye = {
+                        x: 1.2 * Math.cos(angle * Math.PI / 180), // Movimiento de cámara en ángulo
+                        y: 1.5 * Math.sin(angle * Math.PI / 180),
+                        z: 1.0
+                    };
+                    Plotly.relayout('graph1', {
+                        scene: {
+                            camera: { eye: eye },
+                            xaxis: { 
+                                title: 'Scan (m)', 
+                                color: '#ffffff', // Título del eje X en blanco
+                                showgrid: true,   // Mostrar cuadrícula
+                                gridcolor: '#555555' // Color de la cuadrícula
+                            },
+                            yaxis: { 
+                                title: 'Step (m)', 
+                                color: '#ffffff', // Título del eje Y en blanco
+                                showgrid: true,   // Mostrar cuadrícula
+                                gridcolor: '#555555' // Color de la cuadrícula
+                            },
+                            zaxis: { 
+                                title: 'Amplitud (dB)', 
+                                color: '#ffffff', // Título del eje Z en blanco
+                                showgrid: true,   // Mostrar cuadrícula
+                                gridcolor: '#555555' // Color de la cuadrícula
+                            }
+                        },
+                        template: 'plotly_dark',  // Usar fondo oscuro para resaltar el gráfico
+                        paper_bgcolor: 'rgba(0,0,0,0)', // Fondo transparente del área del gráfico
+                        plot_bgcolor: 'rgba(0,0,0,0)',  // Fondo transparente de la gráfica
+                        margin: { l: 50, r: 50, b: 50, t: 80 } // Ajustes para los márgenes para mejor presentación
+                    });
+                }
+
+
+            
+                // Activar la rotación cada 50 ms
+                setInterval(rotateGraph, 50);
+            </script>
+            
+            
+    
+            
 
             <h2>Puntos de Medición</h2>
             <table class="table table-puntos-medicion">
@@ -193,9 +284,33 @@
                     {% endfor %}
                 </tbody>
             </table>
+
+            <!-- Nueva sección para agregar una imagen -->
+            <div class="image-section">
+                <h3>Agregar Imagen</h3>
+                <input type="file" id="image-upload" accept="image/*" />
+                <img id="preview" src="#" alt="Vista previa de la imagen" style="display:none; margin-top: 10px;" />
+            </div>
         </div>
+
+        
         
     </div>
+
+
+    
+    <div class="container_3graficas">
+        <!-- Primer gráfico -->
+        <div class="graph-container" id="graph-container-1">
+            {{ graph_html1 | safe }}
+        </div>
+    </div>
+    
+    
+    
+    
+
+    
 
     
     
@@ -212,10 +327,6 @@
         });
     </script>
 
-    <button id="nuevoRegistroBtn" class="boton" onclick="redirigirIdentificador()">
-        <ion-icon name="identificador"></ion-icon>
-        <span>Regresar</span>
-    </button>
     
     
     <!-- Script para incluir jsPDF -->
@@ -257,7 +368,7 @@
         let identificador = "{{ dato.identificador }}";
 
         // Cargar las imágenes desde la carpeta 
-        loadImageAsBase64('/static/images/logo2.png', function(logo1Base64) {
+        loadImageAsBase64('/static/images/loguni.jpg', function(logo1Base64) {
             loadImageAsBase64('/static/images/logomarina.jpg', function(logo2Base64) {
                 
                 // Agregar las imágenes al PDF
@@ -368,6 +479,7 @@
 </script>    
 
     <!-- Script para Particles.js -->
+    <script src="{{ url_for('static', path='js/rotate_graph.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="/static/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
