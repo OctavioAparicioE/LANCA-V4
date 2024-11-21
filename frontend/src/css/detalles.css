@@ -9,6 +9,7 @@ body {
     font-size: 1em; /* Tamaño de letra ligeramente reducido */
     color: #fff;
     background-color: #000; /* Fondo negro para mayor contraste */
+    place-items: center;
 }
 
 /* Fondo de partículas */
@@ -28,7 +29,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    background: linear-gradient(10deg, rgb(0, 0, 0) 20%, rgb(0, 17, 48) 80%);
+    background: linear-gradient(10deg, rgb(0, 0, 0) 20%, rgb(4, 0, 54) 80%);
     display: flex;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -37,6 +38,7 @@ body {
 
 /* Contenedor del menú */
 .containermenu {
+    
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -125,20 +127,36 @@ body {
     gap: 40px;
     padding-top: 100px;
     justify-content: center;
+    max-width: 100%;  /* Asegura que los elementos hijos no excedan el ancho disponible */
 }
+
+.main-content {
+    display: flex;              /* Define el contenedor como un contenedor flex */
+    flex-direction: column;     /* Coloca los elementos en una columna (puedes cambiar a 'row' si es necesario) */
+    justify-content: center;    /* Centra los elementos verticalmente */
+    align-items: center;        /* Centra los elementos horizontalmente */
+    width: 100%;                 /* Los elementos ocuparán el 100% del ancho del contenedor */
+    margin: 10px 0;              /* Agrega un poco de espacio alrededor de cada elemento */
+    text-align: center; 
+}
+
 
 /* Estilos de las columnas */
 .sidebar,
 .main-content {
-    width: 70%; /* Aumenta el ancho para hacer los contenedores más anchos */
-    max-width: 1000px; /* También ajusta el ancho máximo */
-    padding: 20px;
-    border: 1px solid #444;
-    border-radius: 10px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    width: 100%; /* Ensures the container takes the full width of its parent */
+    max-width: 1800px; /* Adjusted to a smaller max-width for better responsiveness */
+    min-width: 900px; /* Optional: Set a minimum width to avoid the container becoming too narrow */
+    padding: 10px; /* Space inside the container */
+    border: 1px solid #444; /* Border color */
+    border-radius: 10px; /* Rounded corners */
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    color: #ffffff; /* White text color */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for transform and shadow */
 }
+
 
 
 
@@ -307,6 +325,53 @@ button:hover {
     transform: translateY(-5px);
 }
 
+/* **************************************************************** GRAFICAS *************************************/
+
+/* Estilo para el contenedor que contiene las 3 gráficas */
+.container_3graficas {
+    width: 100%; /* Usar el 100% del ancho disponible */
+    max-width: 1850px; /* Limitar el ancho máximo */
+    height: auto; /* Ajustar automáticamente según el contenido */
+    margin: 0 auto; /* Centrar horizontalmente */
+    padding: 15px; /* Espaciado interno uniforme */
+    box-sizing: border-box; /* Incluir padding en el cálculo del ancho */
+    background-color: transparent; /* Fondo completamente transparente */
+    border-radius: 15px; /* Bordes redondeados para el contenedor */
+}
+
+/* Estilo para cada gráfica individual */
+.graph-container1 {
+    width: 100%; /* Ajustar al ancho del contenedor padre */
+    max-width: 600px; /* Limitar el ancho máximo de cada gráfica */
+    height: 400px; /* Altura fija para mantener proporciones */
+    margin: 20px auto; /* Centrar cada gráfica con espacio entre ellas */
+    padding: 10px; /* Espaciado interno */
+    border: 2px solid #333333; /* Borde oscuro para contraste */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: transparent; /* Fondo completamente transparente */
+    box-sizing: border-box; /* Asegurar que padding y bordes no alteren el tamaño total */
+    box-shadow: 0 4px 10px rgba(185, 182, 182, 0.5); /* Sombra para resaltar el gráfico */
+}
+
+/* Responsividad para dispositivos pequeños */
+@media (max-width: 768px) {
+    .container_3graficas {
+        padding: 10px; /* Reducir padding en dispositivos pequeños */
+    }
+
+    .graph-container1 {
+        max-width: 100%; /* Permitir que las gráficas ocupen todo el ancho disponible */
+        height: auto; /* Ajustar la altura automáticamente */
+    }
+}
+
+
+
+/* En este punto ya esta ajustado la ubicacion V1 del producto final, falta ajustar tamaño y y colores, probablemente fondos de graficas. */
+
+/* **************************************************************** GRAFICAS *************************************/
+
+
 /* Estilo para pantallas pequeñas */
 @media (max-width: 768px) {
     .container {
@@ -323,3 +388,4 @@ button:hover {
         padding: 8px 15px; /* Espaciado reducido */
     }
 }
+
