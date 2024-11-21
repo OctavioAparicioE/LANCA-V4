@@ -21,7 +21,10 @@ from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 import mysql.connector
-
+from fastapi.responses import HTMLResponse
+import plotly
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 
 app = FastAPI()
@@ -69,9 +72,11 @@ def buscar_datos_medicion(request: Request, identificador: str = Form(...), db: 
 
     return templates.TemplateResponse("identi.html", {"request": request, "datos": datos, "todos_los_identificadores": todos_los_identificadores})
 
+
+
 @app.get("/detalles")
 def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_connec)):
-    # Consulta los datos de DatosMedicionPrincipal usando el ID
+    # Consulta los datos de DatosMedicionPrincipal usando el ID|
     dato = db.query(DatosMedicionPrincipal).filter(DatosMedicionPrincipal.id_datos_medicion == id).first()
 
     if not dato:    
@@ -129,7 +134,155 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
        PuntosMedicion.amplitud4.desc()
     ).all()
     
-#######################################
+##########################################################    GRAFICAS 3D, AZIMUTH & ELEVATION    ##########################################################
+    # Consultar datos de StartStop
+    result_graficas = db.query(
+        StartStop.scan_start,
+        StartStop.scan_stop,
+        StartStop.step_start,
+        StartStop.step_stop,
+        StartStop.point_scan,
+        StartStop.point_step
+    ).join(
+        DatosMedicionPrincipal
+    ).filter(
+        DatosMedicionPrincipal.identificador == dato.identificador
+    ).all()
+
+    if not result_graficas:
+        raise HTTPException(status_code=404, detail="Datos no encontrados para el identificador")
+
+    # Consultar datos de PuntosMedicion
+    puntos_medicion_data_graficas = db.query(
+        PuntosMedicion.scan,
+        PuntosMedicion.rinc,
+        PuntosMedicion.amplitud4
+    ).join(
+        Mediciones, PuntosMedicion.id_medicion == Mediciones.id_medicion
+    ).filter(
+        Mediciones.identificador == dato.identificador  # Filtrado por identificador
+    ).all()
+
+    # Extraer los valores de los datos de PuntosMedicion
+    amplitud4_values = [p.amplitud4 for p in puntos_medicion_data_graficas]
+    rinc_values = [p.rinc for p in puntos_medicion_data_graficas]
+    scan_values = [p.scan for p in puntos_medicion_data_graficas]
+
+    # Extraer datos de `result` para los límites
+    scan_start = result_graficas[0].scan_start
+    scan_stop = result_graficas[0].scan_stop
+    step_start = result_graficas[0].step_start
+    step_stop = result_graficas[0].step_stop
+    point_scan = int(result_graficas[0].point_scan)  # Asegurarse de que sea entero
+    point_step = int(result_graficas[0].point_step)  # Asegurarse de que sea entero
+
+    radiation_df = pd.DataFrame(
+        {"Bin4Amptd": amplitud4_values, "Rinc": rinc_values, "Scan": scan_values}
+    )
+
+    # Limitar amplitud
+    radiation_df["Bin4Amptd"] = np.where(radiation_df["Bin4Amptd"] > -10, radiation_df["Bin4Amptd"], -10)
+
+    # Crear DataFrame 3D
+    radiation3d = pd.DataFrame()
+    for i in range(point_scan):
+        scan_data = radiation_df[radiation_df["Scan"] == i].set_index("Rinc")
+        radiation3d[i] = scan_data["Bin4Amptd"]
+
+    # Ejes
+    x = np.linspace(scan_start, scan_stop, point_scan)  # Eje X
+    y = np.linspace(step_start, step_stop, point_step)  # Eje Y
+
+    # Crear subgráficas
+    fig1 = make_subplots(
+        rows=1, cols=3,
+        subplot_titles=("Patrón de Radiacíon", "Perfil Azimut", "Perfil Elevación"),
+        specs=[[{'type': 'surface'}, {'type': 'scatter'}, {'type': 'scatter'}]]
+    )
+
+    # Gráfico 3D (fig1)
+    fig1.add_trace(
+        go.Surface(
+            z=radiation3d.values, 
+            x=x, 
+            y=y, 
+            colorscale='Viridis',  # Esquema de colores mejorado
+            colorbar=dict(title="", tickvals=[-40, -30, -20,-10, 0, 10, 20, 30, 40], ticktext=["-40", "-30", "-20","-10", "0", "10", "20", "30", "40"]),
+            contours=dict(
+                z=dict(show=True, usecolormap=True, highlightcolor="yellow", project_z=True)
+            )
+        ),
+        row=1, col=1
+    )
+
+    # Títulos y etiquetas para el gráfico 3D
+    fig1.update_layout(
+        title="",
+        scene=dict(
+            xaxis_title="Scan (m)",
+            yaxis_title="Step (m)",
+            zaxis_title="Amplitud Bin4"
+        ),
+        height=600,
+        template="plotly_dark"  # Fondo oscuro
+    )
+
+    # Gráfico Azimut
+    plano = radiation3d.shape[1] // 2
+    fig1.add_trace(
+        go.Scatter(
+            x=x, 
+            y=radiation3d[plano], 
+            mode='lines', 
+            name='Azimut', 
+            line=dict(color='royalblue', width=3)
+        ),
+        row=1, col=2
+    )
+
+    # Títulos y formato del gráfico Azimut
+    fig1.update_xaxes(title_text="Scan (m)", row=1, col=2)
+    fig1.update_yaxes(title_text="Amplitud Bin4", row=1, col=2)
+
+    # Gráfico Elevación
+    elevacion = radiation3d.T
+    fig1.add_trace(
+        go.Scatter(
+            x=y, 
+            y=elevacion[plano], 
+            mode='lines', 
+            name='Elevación', 
+            line=dict(color='darkorange', width=3)
+        ),
+        row=1, col=3
+    )
+
+    # Títulos y formato del gráfico Elevación
+    fig1.update_xaxes(title_text="Step (m)", row=1, col=3)
+    fig1.update_yaxes(title_text="", row=1, col=3)
+
+    # Crear otro gráfico 3D (fig2) con diferentes configuraciones
+    fig2 = go.Figure(data=[go.Surface(z=radiation3d.values, x=x, y=y, colorscale='Viridis')])
+
+    # Títulos y diseño para el segundo gráfico 3D
+    fig2.update_layout(
+        title="Patrón de Radisción",
+        scene=dict(
+            xaxis_title="Scan (m)",
+            yaxis_title="Step (m)",
+        ),
+        template="plotly_dark",
+        height=1800,  # Aumentar el tamaño del gráfico
+        width=1200
+    )
+
+    # Convertir los gráficos a HTML
+    graph_html1 = plotly.offline.plot(fig1, auto_open=False, output_type="div")
+
+
+############################################################################################################################################################
+
+
 
 
     return templates.TemplateResponse("detalles.html", {
@@ -139,8 +292,16 @@ def mostrar_detalles(request: Request, id: int, db: Session = Depends(get_db_con
         "variables_data": variables_data,
         "puntos_medicion_data": puntos_medicion_data,
         "frecuencias_data": frecuencias_data,
-        "grafica_data": grafica_data,
+        "result_graficas" : result_graficas,
+        "puntos_medicion_data_graficas" : puntos_medicion_data_graficas,
+        "request": request,
+        "x_values": x.tolist(),
+        "y_values": y.tolist(),
+        "z_values": radiation3d.values.tolist(),
+        "graph_html1": graph_html1,
+
     })
+
 
 
 # Ruta para mostrar el formulario de login (GET)
@@ -266,7 +427,6 @@ def procesar_mdb(mdb_path):
     df_frec_list = pd.read_sql(query_freq_list, conn)
 
     ############Dataframes tablas de frecuencias en la base de datos 
-
 
 
     # Convertir la columna 'Created On' a datetime
