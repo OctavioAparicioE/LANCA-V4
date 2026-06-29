@@ -3,10 +3,6 @@
 > Este proyecto se creo con el proposito de actualizar y automatizar el proceso de extraccion de datos del laboratorio de antenas
 de la Secretaria de Marina
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Status](https://img.shields.io/badge/Status-Development-orange)
-
 ---
 
 ## 📖 Descripción
@@ -78,7 +74,7 @@ Proyecto/
 Clonar el repositorio
 
 ```bash
-git clone https://github.com/usuario/repositorio.git
+git clone https://github.com/usuario/LANCA-V4.git
 ```
 
 Entrar al proyecto
@@ -131,63 +127,6 @@ python src/main.py
 
 ---
 
-## 📊 Resultados
-
-Aquí puedes mostrar ejemplos.
-
-| Entrada | Resultado |
-|---------|-----------|
-| Imagen | Detección |
-| Video | Seguimiento |
-| Sensor | Gráfica |
-
-También puedes insertar imágenes.
-
-```markdown
-![Resultado](images/result.png)
-```
-
----
-
-## 🛠 Tecnologías
-
-- Python
-- OpenCV
-- NumPy
-- PyTorch
-- TensorFlow
-- YOLO
-- FastAPI
-- Raspberry Pi
-- Docker
-
----
-
-## 📌 Roadmap
-
-- [ ] Primera versión
-- [ ] Optimizar rendimiento
-- [ ] Agregar interfaz web
-- [ ] Despliegue en servidor
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas.
-
-1. Haz un Fork.
-2. Crea una rama.
-3. Realiza tus cambios.
-4. Envía un Pull Request.
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la licencia MIT.
-
----
 
 ## 👤 Autor
 
