@@ -19,11 +19,9 @@ Sistema para la automatización de la extracción, procesamiento y generación d
 
 ## 📖 Descripción
 
-Explica el propósito del proyecto.
+Este proyecto fue desarrollado con el propósito de agilizar y facilitar la extracción, el procesamiento y la correcta interpretación de los datos obtenidos durante las pruebas realizadas a los sistemas de comunicación y radares diseñados por la Secretaría de Marina.
 
-Ejemplo:
-
-Este proyecto implementa un sistema capaz de extraer por si mismo, los datos generados por la camara anecoica, hacer el procesamiento de los mismos, y con base a los resultados generados, poder generar reportes exactos y detallados de todos los datos de las extracciones.  
+La aplicación integra una interfaz gráfica intuitiva que permite gestionar de manera eficiente la información generada por la cámara anecoica, automatizando el procesamiento de datos, la generación de reportes técnicos y el almacenamiento de un historial completo de las mediciones realizadas. Esto contribuye a reducir los tiempos de análisis, minimizar errores humanos y mejorar la trazabilidad de los resultados obtenidos.
 
 ---
 
@@ -80,65 +78,6 @@ Proyecto/
 ```
 
 ---
-
-## ⚙️ Instalación
-
-Clonar el repositorio
-
-```bash
-git clone https://github.com/usuario/LANCA-V4.git
-```
-
-Entrar al proyecto
-
-```bash
-cd repositorio
-```
-
-Crear entorno virtual
-
-```bash
-python -m venv venv
-```
-
-Activarlo
-
-Windows
-
-```bash
-venv\Scripts\activate
-```
-
-Linux / macOS
-
-```bash
-source venv/bin/activate
-```
-
-Instalar dependencias
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## ▶️ Uso
-
-Ejecutar
-
-```bash
-python main.py
-```
-
-o
-
-```bash
-python src/main.py
-```
-
----
-
 
 ## 👤 Autor
 
