@@ -130,16 +130,10 @@ python src/main.py
 
 ## 👤 Autor
 
-**Tu Nombre**
+**Octavio Joel Aparicio Espinoza**
 
-GitHub: https://github.com/tu_usuario
+GitHub: https://github.com/OctavioAparicioE
 
-LinkedIn: https://linkedin.com/in/tu_perfil
+Correo: tavo.vox.fender@gmail.com
 
-Correo: tu_correo@ejemplo.com
 
----
-
-## ⭐ Si este proyecto te resultó útil
-
-¡No olvides dejar una ⭐ en el repositorio!
