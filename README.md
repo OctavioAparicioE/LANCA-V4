@@ -4,7 +4,7 @@
 de la Secretaria de Marina
 
 <p align="center">
-  <img src="frontend/src/images/fondo.jpg" alt="LANCA" width="900">
+  <img src="frontend/src/images/background.jpg" alt="LANCA" width="900">
 </p>
 
 <h1 align="center">
