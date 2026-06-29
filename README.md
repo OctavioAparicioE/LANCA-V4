@@ -1,6 +1,7 @@
-# 🚀 Nombre del Proyecto
+# 🚀 SISTEMA DE EXTRACCIÓN Y PROCESAMIENTO DE DATOS DE LA CAMARA ANECOICA DE LA SEMAR - LANCA
 
-> Breve descripción de una o dos líneas sobre qué hace el proyecto.
+> Este proyecto se creo con el proposito de actualizar y automatizar el proceso de extraccion de datos del laboratorio de antenas
+de la Secretaria de Marina
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?logo=python)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -14,17 +15,15 @@ Explica el propósito del proyecto.
 
 Ejemplo:
 
-Este proyecto implementa un sistema capaz de detectar objetos mediante Inteligencia Artificial y combinar dicha información con datos obtenidos por sensores para generar una visualización en tiempo real.
+Este proyecto implementa un sistema capaz de extraer por si mismo, los datos generados por la camara anecoica, hacer el procesamiento de los mismos, y con base a los resultados generados, poder generar reportes exactos y detallados de todos los datos de las extracciones.  
 
 ---
 
-## ✨ Características
+## Requerimientos
 
-- ✅ Característica 1
-- ✅ Característica 2
-- ✅ Característica 3
-- ✅ Fácil de instalar
-- ✅ Código modular
+- ✅ Servior de Base se Datos, MySQL (Base de datos)
+- ✅ Instalar servidor para aplicativo
+- ✅ Instalacion de recursos necesaios.
 
 ---
 
@@ -33,15 +32,43 @@ Este proyecto implementa un sistema capaz de detectar objetos mediante Inteligen
 ```text
 Proyecto/
 │
-├── data/               # Datos
-├── models/             # Modelos entrenados
-├── src/                # Código fuente
-│   ├── main.py
-│   ├── utils.py
-│   └── config.py
-├── images/
+├── backend/
+│   └── app/
+│       ├── __pycache__/
+│       ├── __init__.py
+│       ├── database.py
+│       ├── database2.py
+│       ├── main.py
+│       └── models.py
+│
+├── env/
+│   ├── Include/
+│   │   └── site/
+│   │       └── python3.12/
+│   │           └── greenlet/
+│   ├── Lib/
+│   │   └── site-packages/
+│   ├── Scripts/
+│   └── pyvenv.cfg
+│
+├── frontend/
+│   └── src/
+│       ├── css/
+│       ├── images/
+│       ├── js/
+│       ├── detalles.html
+│       ├── identi.html
+│       ├── index.html
+│       ├── login.html
+│       ├── menu.html
+│       ├── pdfPage.html
+│       ├── reporte.html
+│       └── upload.html
+│
+├── README.md
+├── graficas_final.py
 ├── requirements.txt
-└── README.md
+└── scrip DB - v2.txt
 ```
 
 ---
