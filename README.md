@@ -3,6 +3,18 @@
 > Este proyecto se creo con el proposito de actualizar y automatizar el proceso de extraccion de datos del laboratorio de antenas
 de la Secretaria de Marina
 
+<p align="center">
+  <img src="images/fondo.jpg" alt="LANCA" width="900">
+</p>
+
+<h1 align="center">
+Sistema de Extracción y Procesamiento de Datos de la Cámara Anecoica de la SEMAR
+</h1>
+
+<p align="center">
+Sistema para la automatización de la extracción, procesamiento y generación de reportes de mediciones de laboratorio.
+</p>
+
 ---
 
 ## 📖 Descripción
